@@ -1,1 +1,401 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><title>Home Base — Familia Hasbun</title><style>*{box-sizing:border-box}body{margin:0;background:#101014;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}main{max-width:1100px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}.eyebrow{font-size:12px;letter-spacing:3px;color:#bba0fa;font-weight:bold}.brand{font-size:34px;font-weight:800;letter-spacing:-1px;margin:10px 0 3px}.brand span{color:#bba0fa}.family{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#d6c6ff;font-weight:600;margin-bottom:15px}.clock{font-size:76px;line-height:1.1;font-weight:300;margin:10px 0}.date{color:#b6b5c0;font-size:19px}.tag{color:#b6b5c0;font-size:14px;text-align:right}.line{height:3px;background:#8050e4;margin:24px 0}.grid{display:flex;flex-wrap:wrap;margin:0 -7px}.tile{display:block;text-decoration:none;color:white;width:calc(50% - 14px);margin:7px;background:#22222b;border:1px solid #3b3548;border-radius:15px;padding:24px;min-height:130px}.tile:active{background:#382750}.icon{font-size:30px;display:block;margin-bottom:12px}.name{font-size:23px;font-weight:600}.sub{color:#b6b5c0;font-size:14px;margin-top:7px}.footer{color:#9994a5;font-size:13px;margin-top:25px}.wide{width:calc(100% - 14px);min-height:90px}.wide .icon{display:inline;margin-right:14px}.wide .name{display:inline}@media(max-width:530px){main{padding:16px}.clock{font-size:58px}.tile{padding:16px;min-height:125px}.name{font-size:19px}.tag{display:none}}</style></head><body><main><header class="top"><div><div class="eyebrow">THE HASBUN HOUSEHOLD · BALTIMORE</div><div class="brand">HOME <span>BASE</span></div><div class="family">Familia Hasbun</div><div id="clock" class="clock">--:--</div><div id="date" class="date">Loading date…</div></div><div class="tag">FAMILIA HASBUN<br>HOME COMMAND CENTER</div></header><div class="line"></div><section class="grid"><a class="tile" href="https://my.wyze.com/live"><span class="icon">◉</span><div class="name">Security</div><div class="sub">Wyze camera web view</div></a><a class="tile" href="https://music.apple.com/"><span class="icon">♫</span><div class="name">Apple Music</div><div class="sub">Try web player or use Music app</div></a><a class="tile" href="https://forecast.weather.gov/zipcity.php?inputstring=Baltimore%2CMD"><span class="icon">☀</span><div class="name">Weather</div><div class="sub">Baltimore forecast · NWS</div></a><a class="tile" href="https://www.npr.org/sections/news/"><span class="icon">▤</span><div class="name">News</div><div class="sub">Latest NPR headlines</div></a><a class="tile" href="https://www.icloud.com/calendar/"><span class="icon">▦</span><div class="name">Calendar</div><div class="sub">Try iCloud or use Calendar app</div></a><a class="tile" href="https://www.weather.gov/lwx/"><span class="icon">☁</span><div class="name">Local weather</div><div class="sub">NWS Baltimore/Washington</div></a></section><p class="footer">Familia Hasbun · Home Base v1.1 · Lightweight offline clock, online shortcuts. Camera and music integration depend on browser compatibility. No passwords stored.</p></main><script>function tick(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),ampm=h>=12?'PM':'AM';h=h%12||12;document.getElementById('clock').innerHTML=h+':'+(m<10?'0':'')+m+' <span style="font-size:24px;color:#bba0fa">'+ampm+'</span>';document.getElementById('date').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});}tick();setInterval(tick,15000);</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Home Base — Familia Hasbun</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101018;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+button,select{font-family:inherit}
+button{cursor:pointer}
+main{max-width:1100px;margin:auto;padding:20px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.eyebrow{font-size:11px;letter-spacing:3px;color:#bba0fa;font-weight:bold}
+.brand{font-size:24px;font-weight:800;letter-spacing:-1px;margin:7px 0}
+.brand span{color:#bba0fa}
+.family{font-size:11px;letter-spacing:3px;color:#d6c6ff;text-transform:uppercase}
+.clock{text-align:center;padding:16px 0 20px}
+.time{font-size:clamp(90px,18vw,190px);line-height:1;font-weight:200;letter-spacing:-7px;font-variant-numeric:tabular-nums}
+.ampm{font-size:20px;color:#bba0fa;letter-spacing:0}
+.date{color:#b6b5c0;font-size:19px;margin-top:12px}
+.tabs{display:flex;gap:8px;margin:16px 0}
+.tab{border:1px solid #3b3548;background:#22222b;color:#bbb;padding:12px 24px;border-radius:10px;font-size:15px}
+.tab.active{background:#8050e4;color:#fff;border-color:#8050e4}
+.card{background:#1e1e2a;border:1px solid #393344;border-radius:18px;padding:22px;margin-bottom:14px}
+.cardtitle{font-size:12px;letter-spacing:2px;color:#bba0fa;font-weight:bold;margin-bottom:16px}
+.weatherrow{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.weathericon{width:120px;height:120px}
+.temp{font-size:72px;font-weight:200;line-height:1}
+.condition{font-size:20px;margin-top:8px}
+.muted{color:#aaa7b8;font-size:14px;margin-top:7px}
+.days{display:flex;gap:8px;overflow-x:auto;padding:12px 0}
+.day{min-width:90px;flex:1;background:#292637;border:1px solid #40394f;color:#fff;border-radius:12px;padding:12px 8px;text-align:center}
+.day.selected{border-color:#bba0fa;background:#44345f}
+.day .emoji{font-size:28px;margin:10px 0}
+.day .hi{font-size:18px;font-weight:bold}
+.day .lo{font-size:13px;color:#aaa7b8}
+.graph{width:100%;height:180px;display:block}
+.grid{display:flex;flex-wrap:wrap;margin:0 -7px}
+.tile{display:block;text-decoration:none;color:#fff;width:calc(50% - 14px);margin:7px;background:#242331;border:1px solid #393344;border-radius:15px;padding:22px;min-height:125px}
+.tile:active{background:#44345f}
+.tileicon{font-size:30px;margin-bottom:12px}
+.tilename{font-size:21px;font-weight:600}
+.tilesub{color:#aaa7b8;font-size:13px;margin-top:7px}
+.newsitem{display:block;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid #393344;font-size:16px;line-height:1.4}
+.newsitem:last-child{border:0}
+.newsitem:active{color:#bba0fa}
+.newssource{color:#bba0fa;font-size:11px;letter-spacing:1px;margin-bottom:5px}
+.hidden{display:none}
+.settings{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+select{background:#292637;color:#fff;border:1px solid #4c405e;border-radius:8px;padding:10px;font-size:15px}
+.footer{color:#777385;font-size:12px;text-align:center;margin:25px 0}
+.status{color:#aaa7b8;font-size:13px}
+.refresh{background:#38294f;border:1px solid #6e4b9d;color:#fff;border-radius:8px;padding:9px 14px}
+@media(max-width:600px){
+main{padding:12px}
+.time{font-size:21vw;letter-spacing:-4px}
+.card{padding:15px}
+.temp{font-size:58px}
+.weathericon{width:90px;height:90px}
+.tile{padding:15px;min-height:110px}
+.tilename{font-size:17px}
+}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+<div>
+<div class="eyebrow">THE HASBUN HOUSEHOLD · BALTIMORE</div>
+<div class="brand">HOME <span>BASE</span></div>
+<div class="family">Familia Hasbun</div>
+</div>
+<div style="font-size:30px;color:#bba0fa">⌂</div>
+</header>
+
+<div class="tabs">
+<button class="tab active" id="homeTab" onclick="showMode('home')">Home</button>
+<button class="tab" id="controlTab" onclick="showMode('control')">Control</button>
+</div>
+
+<section id="homeMode">
+<div class="clock">
+<div class="time" id="clock">--:--</div>
+<div class="date" id="date">Loading date...</div>
+</div>
+
+<div class="card">
+<div class="cardtitle">BALTIMORE WEATHER</div>
+<div class="weatherrow">
+<div id="weatherArt"></div>
+<div>
+<div class="temp" id="temperature">--°</div>
+<div class="condition" id="condition">Loading weather...</div>
+<div class="muted" id="weatherDetails">Baltimore, Maryland</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="cardtitle">7-DAY FORECAST · TAP A DAY</div>
+<div class="days" id="forecastDays"></div>
+<div class="muted" id="selectedDay">Select a day to explore the forecast.</div>
+<svg id="forecastGraph" class="graph" viewBox="0 0 700 180" preserveAspectRatio="none"></svg>
+</div>
+
+<div class="card">
+<div class="cardtitle">LATEST HEADLINES</div>
+<div id="newsHome" class="status">Loading headlines...</div>
+</div>
+</section>
+
+<section id="controlMode" class="hidden">
+<div class="card">
+<div class="cardtitle">HOME CONTROLS</div>
+<div class="grid">
+<a class="tile" href="https://music.apple.com/">
+<div class="tileicon">♫</div>
+<div class="tilename">Apple Music</div>
+<div class="tilesub">Open Music · Playback can continue in background</div>
+</a>
+<a class="tile" href="https://www.icloud.com/calendar/">
+<div class="tileicon">▦</div>
+<div class="tilename">Family Calendar</div>
+<div class="tilesub">Open iCloud Calendar</div>
+</a>
+<a class="tile" href="https://www.npr.org/sections/news/">
+<div class="tileicon">▤</div>
+<div class="tilename">News</div>
+<div class="tilesub">Latest headlines</div>
+</a>
+<a class="tile" href="https://forecast.weather.gov/zipcity.php?inputstring=Baltimore%2CMD">
+<div class="tileicon">☀</div>
+<div class="tilename">Weather</div>
+<div class="tilesub">National Weather Service</div>
+</a>
+</div>
+</div>
+
+<div class="card">
+<div class="cardtitle">DASHBOARD SETTINGS</div>
+<div class="settings">
+<label for="units">Temperature</label>
+<select id="units" onchange="changeUnits()">
+<option value="fahrenheit">Fahrenheit °F</option>
+<option value="celsius">Celsius °C</option>
+</select>
+<button class="refresh" onclick="loadWeather()">Refresh weather</button>
+<button class="refresh" onclick="loadNews()">Refresh news</button>
+</div>
+<p class="muted">Weather location: Baltimore, Maryland. More locations can be added later.</p>
+</div>
+
+<div class="card">
+<div class="cardtitle">NEWS FEED</div>
+<div id="newsControl" class="status">Loading headlines...</div>
+</div>
+</section>
+
+<div class="footer">HOME BASE · FAMILIA HASBUN · VERSION 3</div>
+</main>
+
+<script>
+var weatherData=null;
+var selectedIndex=0;
+var unit=localStorage.getItem("homebase-unit")||"fahrenheit";
+
+function tick(){
+var d=new Date(),h=d.getHours(),m=d.getMinutes();
+var ampm=h>=12?"PM":"AM";
+h=h%12||12;
+document.getElementById("clock").innerHTML=
+h+":"+(m<10?"0":"")+m+
+'<span class="ampm"> '+ampm+'</span>';
+document.getElementById("date").textContent=
+d.toLocaleDateString("en-US",{
+weekday:"long",month:"long",day:"numeric",year:"numeric"
+});
+}
+tick();
+setInterval(tick,15000);
+
+function showMode(mode){
+document.getElementById("homeMode").className=
+mode==="home"?"":"hidden";
+document.getElementById("controlMode").className=
+mode==="control"?"":"hidden";
+document.getElementById("homeTab").className=
+mode==="home"?"tab active":"tab";
+document.getElementById("controlTab").className=
+mode==="control"?"tab active":"tab";
+}
+
+function weatherName(code){
+if(code===0)return "Clear sky";
+if(code<=3)return "Partly cloudy";
+if(code<=48)return "Foggy";
+if(code<=57)return "Drizzle";
+if(code<=67)return "Rain";
+if(code<=77)return "Snow";
+if(code<=82)return "Rain showers";
+if(code<=86)return "Snow showers";
+if(code>=95)return "Thunderstorms";
+return "Cloudy";
+}
+
+function weatherEmoji(code){
+if(code===0)return "☀️";
+if(code<=3)return "🌤️";
+if(code<=48)return "🌫️";
+if(code<=67)return "🌧️";
+if(code<=77)return "❄️";
+if(code<=82)return "🌦️";
+if(code<=86)return "🌨️";
+if(code>=95)return "⛈️";
+return "☁️";
+}
+
+function weatherSVG(code){
+var cloud='<ellipse cx="62" cy="70" rx="37" ry="19" fill="#d8d4eb"/>'+
+'<circle cx="45" cy="60" r="20" fill="#e9e5f5"/>'+
+'<circle cx="68" cy="55" r="25" fill="#e9e5f5"/>';
+var sun='<circle cx="47" cy="45" r="25" fill="#ffcf70"/>'+
+'<circle cx="47" cy="45" r="32" fill="none" stroke="#ffcf70" stroke-width="2" opacity=".4"/>';
+var rain='<path d="M40 94l-7 14 M65 94l-7 14 M90 94l-7 14" stroke="#83b9ff" stroke-width="5" stroke-linecap="round"/>';
+var snow='<text x="35" y="110" font-size="30" fill="#bba0fa">❄</text>';
+var content="";
+if(code===0)content=sun;
+else if(code<=3)content=sun+cloud;
+else if(code<=48)content=cloud;
+else if(code<=67||code<=82)content=cloud+rain;
+else if(code<=86)content=cloud+snow;
+else content=cloud+rain;
+return '<svg class="weathericon" viewBox="0 0 120 120">'+content+'</svg>';
+}
+
+function changeUnits(){
+unit=document.getElementById("units").value;
+localStorage.setItem("homebase-unit",unit);
+loadWeather();
+}
+
+function loadWeather(){
+document.getElementById("condition").textContent="Updating weather...";
+var url="https://api.open-meteo.com/v1/forecast"+
+"?latitude=39.2904&longitude=-76.6122"+
+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code"+
+"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"+
+"&temperature_unit="+unit+
+"&timezone=America%2FNew_York&forecast_days=7";
+var xhr=new XMLHttpRequest();
+xhr.open("GET",url,true);
+xhr.onload=function(){
+if(xhr.status===200){
+try{
+weatherData=JSON.parse(xhr.responseText);
+renderWeather();
+}catch(e){weatherError();}
+}else weatherError();
+};
+xhr.onerror=weatherError;
+xhr.send();
+}
+
+function weatherError(){
+document.getElementById("condition").textContent="Weather unavailable";
+document.getElementById("weatherDetails").textContent="Check connection and refresh";
+}
+
+function renderWeather(){
+var c=weatherData.current;
+var d=weatherData.daily;
+var symbol=unit==="fahrenheit"?"°F":"°C";
+document.getElementById("temperature").textContent=
+Math.round(c.temperature_2m)+"°";
+document.getElementById("condition").textContent=
+weatherName(c.weather_code);
+document.getElementById("weatherDetails").textContent=
+"Feels like "+Math.round(c.apparent_temperature)+symbol+
+" · Humidity "+c.relative_humidity_2m+"%";
+document.getElementById("weatherArt").innerHTML=
+weatherSVG(c.weather_code);
+
+var html="";
+for(var i=0;i<d.time.length;i++){
+var parts=d.time[i].split("-");
+var day=new Date(Number(parts[0]),Number(parts[1])-1,Number(parts[2]));
+var label=i===0?"TODAY":day.toLocaleDateString("en-US",{weekday:"short"}).toUpperCase();
+html+='<button class="day'+(i===selectedIndex?' selected':'')+
+'" onclick="selectDay('+i+')">'+
+'<div>'+label+'</div>'+
+'<div class="emoji">'+weatherEmoji(d.weather_code[i])+'</div>'+
+'<div class="hi">'+Math.round(d.temperature_2m_max[i])+'°</div>'+
+'<div class="lo">'+Math.round(d.temperature_2m_min[i])+'°</div>'+
+'</button>';
+}
+document.getElementById("forecastDays").innerHTML=html;
+selectDay(selectedIndex);
+drawGraph();
+}
+
+function selectDay(i){
+selectedIndex=i;
+if(!weatherData)return;
+var d=weatherData.daily;
+var buttons=document.getElementsByClassName("day");
+for(var j=0;j<buttons.length;j++){
+buttons[j].className=j===i?"day selected":"day";
+}
+document.getElementById("selectedDay").textContent=
+weatherName(d.weather_code[i])+
+" · High "+Math.round(d.temperature_2m_max[i])+"°"+
+" · Low "+Math.round(d.temperature_2m_min[i])+"°"+
+" · Rain chance "+(d.precipitation_probability_max[i]||0)+"%";
+}
+
+function drawGraph(){
+if(!weatherData)return;
+var d=weatherData.daily;
+var highs=d.temperature_2m_max;
+var lows=d.temperature_2m_min;
+var all=highs.concat(lows);
+var min=Math.min.apply(null,all)-5;
+var max=Math.max.apply(null,all)+5;
+var range=max-min||1;
+var top=[],bottom=[];
+for(var i=0;i<highs.length;i++){
+var x=35+i*105;
+top.push(x+","+(155-(highs[i]-min)/range*125));
+bottom.push(x+","+(155-(lows[i]-min)/range*125));
+}
+var svg='<line x1="20" y1="155" x2="680" y2="155" stroke="#494155"/>';
+svg+='<polyline points="'+top.join(" ")+'" fill="none" stroke="#bba0fa" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>';
+svg+='<polyline points="'+bottom.join(" ")+'" fill="none" stroke="#7794db" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+for(var j=0;j<highs.length;j++){
+var x2=35+j*105;
+var y2=155-(highs[j]-min)/range*125;
+svg+='<circle cx="'+x2+'" cy="'+y2+'" r="5" fill="#bba0fa"/>';
+svg+='<text x="'+x2+'" y="'+(y2-12)+'" fill="#fff" font-size="15" text-anchor="middle">'+Math.round(highs[j])+'°</text>';
+}
+document.getElementById("forecastGraph").innerHTML=svg;
+}
+
+function escapeHTML(s){
+return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+.replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function loadNews(){
+var url="https://api.rss2json.com/v1/api.json?rss_url="+
+encodeURIComponent("https://feeds.npr.org/1001/rss.xml");
+var xhr=new XMLHttpRequest();
+xhr.open("GET",url,true);
+xhr.onload=function(){
+if(xhr.status===200){
+try{
+var data=JSON.parse(xhr.responseText);
+if(data.status==="ok"&&data.items&&data.items.length){
+renderNews(data.items);
+return;
+}
+}catch(e){}
+}
+newsError();
+};
+xhr.onerror=newsError;
+xhr.send();
+}
+
+function renderNews(items){
+var html="";
+for(var i=0;i<Math.min(items.length,6);i++){
+var item=items[i];
+if(!/^https?:\/\//i.test(item.link||""))continue;
+html+='<a class="newsitem" href="'+escapeHTML(item.link)+
+'" target="_blank" rel="noopener">'+
+'<div class="newssource">NPR NEWS</div>'+
+escapeHTML(item.title)+"</a>";
+}
+document.getElementById("newsHome").innerHTML=html;
+document.getElementById("newsControl").innerHTML=html;
+}
+
+function newsError(){
+var html='<div class="status">Live headlines could not load. '+
+'<a href="https://www.npr.org/sections/news/" style="color:#bba0fa">Read NPR News</a></div>';
+document.getElementById("newsHome").innerHTML=html;
+document.getElementById("newsControl").innerHTML=html;
+}
+
+document.getElementById("units").value=unit;
+loadWeather();
+loadNews();
+setInterval(loadWeather,1800000);
+setInterval(loadNews,3600000);
+</script>
+</body>
+</html>
